@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Натяжной Потолок - Калькулятор жана Баалар</title>
+    <!-- Font Awesome иконкалар үчүн (Интернет бар болсо иштейт) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* ================= НЕГИЗГИ СТИЛДЕР ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #f1c40f;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f1c40f;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #f1c40f;
+            color: #2c3e50;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #d4ac0d;
+        }
+
+        /* Калькулятор */
+        .calculator-section {
+            padding: 60px 0;
+        }
+
+        .calculator-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        .calc-wrapper {
+            display: flex;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+
+        .calc-inputs {
+            flex: 1;
+            padding: 30px;
+            min-width: 300px;
+            background: #fff;
+        }
+
+        .calc-inputs label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .calc-inputs input, .calc-inputs select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: #f9f9f9;
+        }
+
+        .calc-inputs input:focus, .calc-inputs select:focus {
+            outline: none;
+            border-color: #f1c40f;
+            background: #fff;
+        }
+
+        .checkbox-group {
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .checkbox-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-group label:last-child {
+            margin-bottom: 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-bottom: 0;
+            transform: scale(1.2);
+        }
+
+        .btn-calc {
+            width: 100%;
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-calc:hover {
+            background: #219150;
+        }
+
+        .calc-results {
+            flex: 1;
+            background: #ecf0f1;
+            padding: 30px;
+            min-width: 300px;
+            border-left: 1px solid #ddd;
+        }
+
+        .calc-results h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 2px solid #f1c40f;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .calc-results ul {
+            list-style: none;
+        }
+
+        .calc-results li {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #bdc3c7;
+            padding-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .calc-results .total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #e74c3c;
+            border-bottom: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #bdc3c7;
+        }
+
+        .note {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Прайс-лист */
+        .prices-section {
+            padding: 60px 0;
+            background: #fff;
+        }
+
+        .prices-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .price-card {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #f1c40f;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .price-card h4 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .price-card ul {
+            list-style: none;
+        }
+
+        .price-card li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+        }
+
+        .price-card li b {
+            color: #2c3e50;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+        
+        footer p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Башкы меню -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-home"></i> Potolok<span>Master</span>
+            </div>
+            <nav>
+                <a href="#calculator">Калькулятор</a>
+                <a href="#prices">Баалар</a>
+                <a href="#contact">Байланыш</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Башкы бет (Hero) -->
+    <section class="hero">
+        <div class="container">
+            <h1>Профессионалдуу Натяжной Потолок</h1>
+            <p>Заманбап технологиялар жана сапаттуу материалдар менен үйүңүздү кооздойбуз.</p>
+            <a href="#calculator" class="btn">Баасын эсептөө</a>
+        </div>
+    </section>
+
+    <!-- Калькулятор бөлүмү -->
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <h2>Потолоктун баасын эсептөө</h2>
+            <div class="calc-wrapper">
+                <div class="calc-inputs">
+                    <label>Потолоктун аянты (м²):</label>
+                    <input type="number" id="area" value="20" min="1">
+
+                    <label>Периметр (м):</label>
+                    <input type="number" id="perimeter" value="18" min="1">
+
+                    <label>Плёнканын түрү:</label>
+                    <select id="filmType">
+                        <option value="300">Матовая (300 сом/м²)</option>
+                        <option value="350">Глянцевая (350 сом/м²)</option>
+                        <option value="400">Сатиновая (400 сом/м²)</option>
+                    </select>
+
+                    <label>Кошумча опциялар:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="hasLight"> Жарыктын сызыгы (Световая линия 3см)</label>
+                        <label><input type="checkbox" id="hasTrack"> Магниттик трек (2 метр)</label>
+                        <label><input type="checkbox" id="hasShadow"> Теневой бафет (ПВХ)</label>
+                    </div>
+
+                    <button onclick="calculateTotal()" class="btn-calc">Эсептөө <i class="fas fa-calculator"></i></button>
+                </div>
+
+                <div class="calc-results">
+                    <h3>Жыйынтык:</h3>
+                    <ul id="result-list">
+                        <li>Плёнка: <span id="res-film">0</span> сом</li>
+                        <li>Бафет: <span id="res-baguette">0</span> сом</li>
+                        <li>Кронштейн жана Кольцо: <span id="res-mount">0</span> сом</li>
+                        <li>Кошумчалар: <span id="res-extra">0</span> сом</li>
+                        <li>Орнотуу эмгеги: <span id="res-labor">0</span> сом</li>
+                        <hr style="margin: 10px 0; border: 0; border-top: 1px solid #bdc3c7;">
+                        <li class="total">Жалпы баа: <span id="res-total">0</span> сом</li>
+                    </ul>
+                    <p class="note">* Баа болжолдуу. Так бааны өлчөөдөн кийин айтабыз.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Прайс-лист бөлүмү -->
+    <section id="prices" class="prices-section">
+        <div class="container">
+            <h2>Баалар (Прайс-лист)</h2>
+            <div class="price-grid">
+                
+                <!-- Товарлардын тизмеси -->
+                <div class="price-card">
+                    <h4>Кольцо жана Кронштейн</h4>
+                    <ul>
+                        <li>Кольцо 10см: <b>15 сом</b></li>
+                        <li>Кольцо 15см: <b>25 сом</b></li>
+                        <li>Кольцо 25см: <b>30 сом</b></li>
+                        <li>Кольцо 30см: <b>50 сом</b></li>
+                        <li>Кронштейн 75/100: <b>30 сом</b></li>
+                        <li>Кронштейн 100/125: <b>40 сом</b></li>
+                        <li>Кронштейн 125/150: <b>50 сом</b></li>
+                        <li>Кронштейн 150/200: <b>70 сом</b></li>
+                    </ul>
+                </div>
+                
+                <div class="price-card">
+                    <h4>Бафет жана Гарпун</h4>
+                    <ul>
+                        <li>Бафет Местный: <b>20 сом/м</b></li>
+                        <li>Бафет Россия: <b>33 сом/м</b></li>
+                        <li>Бафет Ким Россия: <b>35 сом/м</b></li>
+                        <li>Гарпун Белый/Черный: <b>16 сом/м</b></li>
+                        <li>Гарпун Тандем: <b>18 сом/м</b></li>
+                        <li>Гарпун Двойной: <b>35 сом/м</b></li>
+                        <li>Теневой бафет ПВХ: <b>65 сом/м</b></li>
+                        <li>Теневой бафет Алюм: <b>180 сом/м</b></li>
+                    </ul>
+                </div>
+
+                <div class="price-card">
+                    <h4>Жарык жана Кошумчалар</h4>
+                    <ul>
+                        <li>Световые линии 3см: <b>320 сом/м</b></li>
+                        <li>Световые линии 5см: <b>360 сом/м</b></li>
+                        <li>Магнитный трек: <b>1000 сом/м</b></li>
+                        <li>Заглушка на магнит: <b>250 сом/м</b></li>
+                        <li>Блок питания 100W: <b>600 сом</b></li>
+                        <li>Лампа 60см 24w: <b>450 сом</b></li>
+                        <li>Уголок: <b>450 сом</b></li>
+                        <li>Заглушка: <b>100 сом</b></li>
+                    </ul>
+                </div>
+
+                <div class="price-card">
+                    <h4>Карниз жана Вставка</h4>
+                    <ul>
+                        <li>Карниз ПК-14 черный: <b>700 сом/м</b></li>
+                        <li>Карниз ПК-14 белый: <b>250 сом/м</b></li>
+                        <li>Карниз ПК-15: <b>550 сом/пачка</b></li>
+                        <li>Заглушка на ПК-14: <b>250 сом/шт</b></li>
+                        <li>Вставка Черная/Белая: <b>35 сом/м</b></li>
+                        <li>Разделитель ПВХ: <b>120 сом/м</b></li>
+                        <li>Заглушка на разделитель: <b>100 сом/м</b></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Байланыш -->
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2026 PotolokMaster. Бардык укуктар корголгон.</p>
+            <p>Байланыш: +996 (XXX) XX-XX-XX | Бишкек ш.</p>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT КОДУ ================= -->
+    <script>
+        // Прайс-листтеги баалар (Сиз бул жерден өзгөртө аласыз)
+        const PRICES = {
+            // Кронштейндер жана шакектер
+            kronshtein: 30, // 75/100 үчүн
+            ring: 15,       // 10см үчүн
+            hook: 10,       // Крючок
+            
+            // Бафет
+            baguetteLocal: 20, // Местный бафет
+            
+            // Орнотуу эмгеги (1 м² үчүн)
+            labor: 150,
+            
+            // Кошумчалар
+            lightLine3cm: 320, // Световая линия 3см (1 метр)
+            magneticTrack: 1000, // Магниттик трек (1 метр)
+            powerSupply: 600, // Блок питания 100W
+            lamp: 450, // Лампа 60см
+            shadowBaguette: 65 // Теневой бафет ПВХ
+        };
+
+        function calculateTotal() {
+            // 1. Киргизилген маалыматтарды алуу
+            let area = parseFloat(document.getElementById('area').value) || 0;
+            let perimeter = parseFloat(document.getElementById('perimeter').value) || 0;
+            let filmPrice = parseFloat(document.getElementById('filmType').value);
+            
+            let hasLight = document.getElementById('hasLight').checked;
+            let hasTrack = document.getElementById('hasTrack').checked;
+            let hasShadow = document.getElementById('hasShadow').checked;
+
+            // 2. Негизги эсептөөлөр
+            // Плёнка
+            let filmCost = area * filmPrice;
+            
+            // Бафет (Эгер теневой тандалса, анын баасын колдонобуз)
+            let baguettePrice = hasShadow ? PRICES.shadowBaguette : PRICES.baguetteLocal;
+            let baguetteCost = perimeter * baguettePrice;
+            
+            // Кронштейндер (Ар 1.5 м² га 1 даана)
+            let kronshteinCount = Math.ceil(area / 1.5);
+            let kronshteinCost = kronshteinCount * PRICES.kronshtein;
+            
+            // Шакектер (Кронштейнге барабар)
+            let ringCost = kronshteinCount * PRICES.ring;
+            
+            // Крючоктор
+            let hookCost = kronshteinCount * PRICES.hook;
+            
+            let mountCost = kronshteinCost + ringCost + hookCost;
+
+            // 3. Кошумчалар
+            let extraCost = 0;
+            
+            if (hasLight) {
+                // Жарык сызыгы периметр боюнча эсептелет
+                extraCost += perimeter * PRICES.lightLine3cm;
+                // Блок питания жана лампа кошулат (болжолдуу 1 комплект)
+                extraCost += PRICES.powerSupply + PRICES.lamp;
+            }
+            
+            if (hasTrack) {
+                // Магниттик трек (мисалы, 2 метр)
+                extraCost += 2 * PRICES.magneticTrack;
+            }
+
+            // 4. Орнотуу эмгеги
+            let laborCost = area * PRICES.labor;
+
+            // 5. Жалпы сумма
+            let total = filmCost + baguetteCost + mountCost + extraCost + laborCost;
+
+            // 6. Экранга чыгаруу (миңдик бөлүктөрү менен)
+            document.getElementById('res-film').innerText = filmCost.toLocaleString();
+            document.getElementById('res-baguette').innerText = baguetteCost.toLocaleString();
+            document.getElementById('res-mount').innerText = mountCost.toLocaleString();
+            document.getElementById('res-extra').innerText = extraCost.toLocaleString();
+            document.getElementById('res-labor').innerText = laborCost.toLocaleString();
+            document.getElementById('res-total').innerText = total.toLocaleString();
+        }
+    </script>
+</body>
+</html>
